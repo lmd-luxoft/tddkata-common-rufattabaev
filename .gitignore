@@ -1,0 +1,14 @@
+.idea
+*.iml
+*.gz
+**/.gz
+**/.iml
+target
+
+*.log
+**/.log
+
+**/themes/mytheme/styles.css
+**/themes/root/styles.css
+*/themes/mytheme/styles.css
+*/themes/root/styles.css
