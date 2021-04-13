@@ -14,6 +14,14 @@ public class CalcTest {
     }
 
     @Test
+    public void testOneArg() {
+        Calc calc = new Calc();
+        int actual = calc.sum("1");
+        int expected = 1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testZeroPlusZero() {
         Calc calc = new Calc();
         int actual = calc.sum("0,0");
@@ -50,6 +58,22 @@ public class CalcTest {
         Calc calc = new Calc();
         int actual = calc.sum("2,2");
         int expected = 4;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDelimiter() {
+        Calc calc = new Calc();
+        int actual = calc.sum("2;2");
+        int expected = -1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testIllegalArg() {
+        Calc calc = new Calc();
+        int actual = calc.sum("incorrect arg");
+        int expected = -1;
         assertEquals(expected, actual);
     }
 }
