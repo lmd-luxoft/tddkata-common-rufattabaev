@@ -76,4 +76,20 @@ public class CalcTest {
         int expected = -1;
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testThreeArgs() {
+        Calc calc = new Calc();
+        int actual = calc.sum("1,2,3");
+        int expected = -1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testNull() {
+        Calc calc = new Calc();
+        int actual = calc.sum(null);
+        int expected = -1;
+        assertEquals(expected, actual);
+    }
 }
