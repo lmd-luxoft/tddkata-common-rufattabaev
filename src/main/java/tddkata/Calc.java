@@ -6,12 +6,14 @@ public class Calc {
         if (expression == null) {
             return -1;
         }
-        String[] values = expression.split(",");
-        if (values.length > 2) {
-            return  -1;
-        }
+
         if (expression.equals("")) {
-            return  result;
+            return result;
+        }
+        String[] values = expression.split(",");
+
+        if (values.length > 2) {
+            return -1;
         }
 
         for (String value : values) {
