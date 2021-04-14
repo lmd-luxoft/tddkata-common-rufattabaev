@@ -81,7 +81,7 @@ public class CalcTest {
     public void testThreeArgs() {
         Calc calc = new Calc();
         int actual = calc.sum("1,2,3");
-        int expected = -1;
+        int expected = 6;
         assertEquals(expected, actual);
     }
 
@@ -92,4 +92,28 @@ public class CalcTest {
         int expected = -1;
         assertEquals(expected, actual);
     }
+    @Test
+    public void testNewLineAllowedAsDelimiter() {
+        Calc calc = new Calc();
+        int actual = calc.sum("1\n2");
+        int expected = 3;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testNewLineAndCommaAllowedAsDelimiter() {
+        Calc calc = new Calc();
+        int actual = calc.sum("1\n2,3");
+        int expected = 6;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testOneDelimiterNextToAnother() {
+        Calc calc = new Calc();
+        int actual = calc.sum("1,\n2");
+        int expected = -1;
+        assertEquals(expected, actual);
+    }
+
 }

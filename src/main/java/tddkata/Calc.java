@@ -12,10 +12,6 @@ public class Calc {
         }
         String[] values = expression.split(",");
 
-        if (values.length > 2) {
-            return -1;
-        }
-
         for (String value : values) {
             try {
                 int intValue = Integer.parseInt(value);
