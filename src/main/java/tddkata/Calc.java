@@ -10,7 +10,7 @@ public class Calc {
         if (expression.equals("")) {
             return result;
         }
-        String[] values = expression.split(",");
+        String[] values = expression.split("[,\\n]");
 
         for (String value : values) {
             try {
