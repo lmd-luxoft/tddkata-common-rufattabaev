@@ -3,10 +3,10 @@ import tddkata.Calc;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CalcTest {
+class CalcTest {
 
     @Test
-    public void testEmptyString() {
+    void testEmptyString() {
         Calc calc = new Calc();
         int actual = calc.sum("");
         int expected = 0;
@@ -14,7 +14,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testOneArg() {
+    void testOneArg() {
         Calc calc = new Calc();
         int actual = calc.sum("1");
         int expected = 1;
@@ -22,7 +22,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testZeroPlusZero() {
+    void testZeroPlusZero() {
         Calc calc = new Calc();
         int actual = calc.sum("0,0");
         int expected = 0;
@@ -30,7 +30,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testZeroPlusOne() {
+    void testZeroPlusOne() {
         Calc calc = new Calc();
         int actual = calc.sum("0,1");
         int expected = 1;
@@ -38,7 +38,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testOnePlusOne() {
+    void testOnePlusOne() {
         Calc calc = new Calc();
         int actual = calc.sum("1,1");
         int expected = 2;
@@ -46,7 +46,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testOnePlusTwo() {
+    void testOnePlusTwo() {
         Calc calc = new Calc();
         int actual = calc.sum("1,2");
         int expected = 3;
@@ -54,7 +54,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testTwoPlusTwo() {
+    void testTwoPlusTwo() {
         Calc calc = new Calc();
         int actual = calc.sum("2,2");
         int expected = 4;
@@ -62,7 +62,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testDelimiter() {
+    void testDelimiter() {
         Calc calc = new Calc();
         int actual = calc.sum("2;2");
         int expected = -1;
@@ -70,7 +70,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testIllegalArg() {
+    void testIllegalArg() {
         Calc calc = new Calc();
         int actual = calc.sum("incorrect arg");
         int expected = -1;
@@ -78,7 +78,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testThreeArgs() {
+    void testThreeArgs() {
         Calc calc = new Calc();
         int actual = calc.sum("1,2,3");
         int expected = 6;
@@ -86,7 +86,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         Calc calc = new Calc();
         int actual = calc.sum(null);
         int expected = -1;
@@ -94,7 +94,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testNewLineAllowedAsDelimiter() {
+    void testNewLineAllowedAsDelimiter() {
         Calc calc = new Calc();
         int actual = calc.sum("1\n2");
         int expected = 3;
@@ -102,7 +102,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testNewLineAndCommaAllowedAsDelimiter() {
+    void testNewLineAndCommaAllowedAsDelimiter() {
         Calc calc = new Calc();
         int actual = calc.sum("1\n2,3");
         int expected = 6;
@@ -110,7 +110,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testOneDelimiterNextToAnother() {
+    void testOneDelimiterNextToAnother() {
         Calc calc = new Calc();
         int actual = calc.sum("1,\n2");
         int expected = -1;
@@ -118,7 +118,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testCustomDelimiter() {
+    void testCustomDelimiter() {
         Calc calc = new Calc();
         int actual = calc.sum("//;\n1;2");
         int expected = 3;
@@ -126,7 +126,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testWrongCustomDelimiter() {
+    void testWrongCustomDelimiter() {
         Calc calc = new Calc();
         int actual = calc.sum("//;\n1,2");
         int expected = -1;
@@ -134,7 +134,7 @@ public class CalcTest {
     }
 
     @Test
-    public void testWrongDeclarationCustomDelimiter() {
+    void testWrongDeclarationCustomDelimiter() {
         Calc calc = new Calc();
         int actual = calc.sum("/;\n1;2");
         int expected = -1;
@@ -142,10 +142,28 @@ public class CalcTest {
     }
 
     @Test
-    public void testNewLineMissedWhileDeclarationCustomDelimiter() {
+    void testNewLineMissedWhileDeclarationCustomDelimiter() {
         Calc calc = new Calc();
         int actual = calc.sum("//;1;2");
         int expected = -1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testNegativeValuesThrowsException() {
+        Calc calc = new Calc();
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> calc.sum("-1,-2,3"));
+        String expected = "negatives not allowed [-1,-2]";
+        String actual = exception.getMessage();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testNegativeValuesWithCustomDelimiterThrowsException() {
+        Calc calc = new Calc();
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> calc.sum("//;\n-4;-5;6"));
+        String expected = "negatives not allowed [-4,-5]";
+        String actual = exception.getMessage();
         assertEquals(expected, actual);
     }
 }
